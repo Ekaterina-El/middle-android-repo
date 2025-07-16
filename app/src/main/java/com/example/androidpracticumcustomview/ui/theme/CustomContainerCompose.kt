@@ -43,7 +43,7 @@ fun CustomContainerCompose(
         launch {
             fullHeight.floatValue.let { h ->
                 offsetYFirst.animateTo(
-                    targetValue = -h / 2f - 50f,
+                    targetValue = -h / 2f + 50f,
                     animationSpec = tween(durationMillis = animationMovementDuration)
                 )
             }
@@ -69,28 +69,17 @@ fun CustomContainerCompose(
         verticalArrangement = Arrangement.Center
     ) {
         firstChild?.let {
-            AlphaWrapper(
-                alpha = alphaAnimate.value,
-                translationY = offsetYFirst.value,
-                content = firstChild
-            )
+            Box(modifier = Modifier.graphicsLayer {
+                this.alpha = alphaAnimate.value
+                this.translationY = offsetYFirst.value
+            }) { firstChild() }
         }
-        secondChild?.let {
-            AlphaWrapper(
-                alpha = alphaAnimate.value,
-                translationY = offsetYSecond.value,
-                content = secondChild
-            )
-        }
-    }
-}
 
-@Composable
-private fun AlphaWrapper(alpha: Float, translationY: Float, content: @Composable () -> Unit) {
-    Box(modifier = Modifier.graphicsLayer {
-        this.alpha = alpha
-        this.translationY = translationY
-    }) {
-        content()
+        secondChild?.let {
+            Box(modifier = Modifier.graphicsLayer {
+                this.alpha = alphaAnimate.value
+                this.translationY = offsetYSecond.value
+            }) { secondChild() }
+        }
     }
 }
