@@ -9,11 +9,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 
-/*
-Задание:
-Реализуйте необходимые компоненты.
-*/
-
 @Composable
 fun MainScreen(closeActivity: () -> Unit) {
     Scaffold { paddingValues ->
@@ -24,17 +19,11 @@ fun MainScreen(closeActivity: () -> Unit) {
                 .clickable { closeActivity.invoke() },
             contentAlignment = Alignment.Center
         ) {
-
             CustomContainerCompose(
-                firstChild = {
-                    // TODO
-                    // ...
-                },
-                secondChild = {
-                    // TODO
-                    // ...
-                }
+                firstChild = { DemoText(text = "firstChild") },
+                secondChild = { DemoText(text = "secondChild") },
             )
         }
     }
 }
+
